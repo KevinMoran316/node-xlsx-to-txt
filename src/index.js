@@ -18,6 +18,11 @@ for (const itemRow of dataSheet) {
     let fileDate;
     let date;
     let momentDate;
+    let lastName;
+
+    //utf encode
+    lastName = itemRow['Apellido'].toString();
+
     
     //date format
     fileDate = itemRow['Fecha'];
@@ -27,12 +32,11 @@ for (const itemRow of dataSheet) {
     momentDate = moment(itemRow['Hora']);
     hour = momentDate.format("HH:mm:ss");
 
-    content = '|'+ itemRow['Nombre'] + '|' + itemRow['Apellido'] + '|' + itemRow['Edad'] + '|' + date + '|' + hour ;
-    fs.appendFile(targetFile, content, (err) => {
+    content = '|'+ itemRow['Nombre'] + '|' + lastName + '|' + itemRow['Edad'] + '|' + date + '|' + hour ;
+    fs.appendFile(targetFile, content, 'utf8', (err) => {
         if (err){
             console.log('error al escribir archivo: ', err);
         }
     });
 }
-
 
